@@ -1,4 +1,4 @@
-# Análise Transações Financeiras
+# Análise de Transações Financeiras
 
 Este projeto foi desenvolvido no Alura Challenge Back-end 3. 
 
