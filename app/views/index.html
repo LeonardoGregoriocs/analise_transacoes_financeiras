@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Financeiro</title>
+        <style> div.alert {text-align: center;} </style>
+
+        <div class="alert">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+    </head>
+
+    <body>
+        <div class="alert">
+            <h1 style="background: #868686d2;">TRANSAÇÕES FINANCEIRAS</h1>
+        </div>
+
+        <div class="alert">
+            <h2><em>IMPORTAR TRANSAÇÕES</em></h2>
+            <form method=post enctype=multipart/form-data>
+            <input type=file id="file" name=file>
+            <br>
+            <br>
+            <input style="background-color: aquamarine;" type=submit value=Importar>
+            </form>
+        </div>
+
+        <div class="alert">
+            <br>
+            <h2><em>IMPORTAÇÕES REALIZADAS</em></h2>
+        </div>
+
+        <div class="alert">
+            <table width="60%" align="center" border="2">
+                <tr>
+                    <td width="30%">Data Transação</td>
+                    <td width="30%">Data Importação</td>
+                </tr>
+                {% for dado in dados %}
+                <tr>
+                    <td>{{ dado.data_transacao}}</td>
+                    <td>{{ dado.data_importacao}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
