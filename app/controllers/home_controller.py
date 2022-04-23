@@ -59,6 +59,7 @@ class HomeController:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")
         return redirect("/")
 
+
 def get_arquivo(file):
     file_address = os.path.join(DIRETORIO, file.filename)
     return file_address

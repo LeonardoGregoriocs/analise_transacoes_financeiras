@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Editar cadastro </title>
+        <style> div.alert {text-align: center;} </style>
+
+        <div class="alert">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+    </head>
+
+    <body>
+        <div class="alert">
+            <h1 style="background: #868686d2;">EDITAR CADASTRO DE USUÁRIO</h1>
+        </div>
+
+        <div class="alert">
+        <form method="post">
+                <label form="name">Nome:</label>
+                <input type="text" name="name" value="{{ request.form['name']}}">
+            </div>
+
+            <br>
+
+            <div class="alert">
+                <label form="email">E-mail</label>
+                <input type="text" name="email" value="{{ request.form['email']}}">
+            </div>
+            <br>
+            <br>
+            <div class="alert">
+                <input style="background-color: aquamarine;" type=submit value=Atualizar>
+            </div>
+        </form>
+    </body>
+</html>

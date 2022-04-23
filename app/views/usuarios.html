@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Usuarios</title>
+        <style> div.alert {text-align: center;} </style>
+
+        <div class="alert">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+    </head>
+
+    <body>
+        <div class="alert">
+            <h1 style="background: #868686d2;">USUÁRIOS CADASTRADOS</h1>
+        </div>
+
+        <div class="alert">
+            <table width="65%" align="center" border="2">
+                <tr>
+                    <td width="10%">Id</td>
+                    <td width="20%">Nome</td>
+                    <td width="40%">E-mail</td>
+                    <td width="15%"></td>
+                    <td width="15%"></td>
+
+                </tr>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.nome }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><form method="get" action="{{ user.id }}/cadastro"><button type="submit" style="background-color: aquamarine">Editar</button></form></td>
+                    <td><form method="post" action="{{ user.id }}/remover"><button type="submit" style="background-color: aquamarine">Deletar</button></form></td>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
