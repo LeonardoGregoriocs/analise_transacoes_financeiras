@@ -2,7 +2,7 @@ import os
 import random
 import smtplib
 
-from flask import redirect, render_template, flash
+from flask import redirect, render_template, flash, session
 from flask_bcrypt import Bcrypt
 from email.message import EmailMessage
 
@@ -14,9 +14,16 @@ EMAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
 class UserController:
 
     def register(self, view, request):
+        if 'usuario_logado' not in session or session['usuario_logado'] == None:
+            flash("Usuário não está logado!")
+            return redirect('/')
+
         return render_template('cadastro.html')
 
     def user_registered(self, view, request):
+        if 'usuario_logado' not in session or session['usuario_logado'] == None:
+            flash("Usuário não está logado!")
+            return redirect('/')
         user_registered = User.get_all_user()
         return render_template("usuarios.html", users=user_registered)
 
@@ -37,7 +44,6 @@ class UserController:
             if not email_exists:
 
                 password_hash = password_encrypted(senha)
-                print(password_hash)
 
                 User.new_user(nome = name, email = email, senha=password_hash)
                 flash("Cadastro feito com sucesso! Será enviado uma senha pro seu e-mail")
@@ -51,7 +57,10 @@ class UserController:
         flash("E-mail já cadastrado em nossa base de dados!")
         return redirect("/cadastro")
 
-    def cadastro(self, view, request, id):
+    def edit_register(self, view, request, id):
+        if 'usuario_logado' not in session or session['usuario_logado'] == None:
+            flash("Usuário não está logado!")
+            return redirect('/')
         return render_template('editar.html')
 
     def update_user(self, view, request, id):
@@ -59,6 +68,13 @@ class UserController:
 
         user_obj.name = request.form['name']
         user_obj.email = request.form['email']
+
+        if user_obj.name == '':
+            flash("O campo nome não pode ficar vazio")
+            return redirect("cadastro")
+        if user_obj.email == '':
+            flash("O campo e-mail não pode ficar vazio!")
+            return redirect("cadastro")
 
         User.update_user(user_obj.name, user_obj.email, id)
 
