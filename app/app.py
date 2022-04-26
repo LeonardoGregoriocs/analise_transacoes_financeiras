@@ -13,25 +13,13 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI']=os.environ["SQLALCHEMY_DATABASE_URI"]
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=os.environ["SQLALCHEMY_TRACK_MODIFICATIONS"]
 
-    from app.models.transacoes import db
+    from app.models.models import db
+    from app.repository.user_repository import UserRepository
     db.init_app(app)
 
     with app.app_context():
         db.create_all()
-
-    from app.models.historico_upload import db
-    db.init_app(app)
-
-    with app.app_context():
-        db.create_all()
-
-    from app.models.user import db, User
-    db.init_app(app)
-
-    with app.app_context():
-        db.create_all()
-        if not User.check_if_email_exists("admin@email.com.br"):
-            User.create_admin()
-
+        if not UserRepository.check_if_email_exists("admin@email.com.br"):
+            UserRepository.create_admin()
 
     return app

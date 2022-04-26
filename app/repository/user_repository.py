@@ -1,17 +1,9 @@
 import os
 
-from flask_sqlalchemy import SQLAlchemy
+from app.models.models import db, User
 from flask_bcrypt import generate_password_hash
 
-
-db = SQLAlchemy()
-
-class User(db.Model):
-
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    nome = db.Column(db.String(100))
-    email = db.Column(db.String(150))
-    senha = db.Column(db.String(150))
+class UserRepository:
 
     def new_user(nome, email, senha):
         new_user = User(

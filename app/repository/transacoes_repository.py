@@ -1,19 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from app.models.models import db, Transactions
 
-db = SQLAlchemy()
-
-class Transactions(db.Model):
-
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    banco_origem = db.Column(db.String(50), nullable=False)
-    agencia_origem = db.Column(db.String(50), nullable=False)
-    conta_origem = db.Column(db.String(50), nullable=False)
-    banco_destino = db.Column(db.String(50), nullable=False)
-    agencia_destino = db.Column(db.String(50), nullable=False)
-    conta_destino = db.Column(db.String(50), nullable=False)
-    valor_transacao = db.Column(db.String(50), nullable=False)
-    data_transacao = db.Column(db.String(50), nullable=False)
-
+class Transacoes_repository:
 
     def check_date(data):
         return db.session.query(Transactions).filter(Transactions.data_transacao == data).first()

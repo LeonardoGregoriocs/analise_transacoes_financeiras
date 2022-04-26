@@ -4,8 +4,8 @@ import os
 from flask import flash, redirect, render_template, session
 from jsonschema import ValidationError
 
-from app.models.transacoes import Transactions
-from app.models.historico_upload import HistoricoUpload
+from app.repository.historico_upload_repository import HistoricoUploadRepository
+from app.repository.transacoes_repository import Transacoes_repository
 
 DIRETORIO = os.environ['DIRETORIO']
 
@@ -17,7 +17,7 @@ class HomeController:
         if 'usuario_logado' not in session or session['usuario_logado'] == None:
             flash("Usuário não está logado!")
             return redirect('/')
-        data = HistoricoUpload.get_information_transactions()
+        data = HistoricoUploadRepository.get_information_transactions()
         return render_template("index.html", dados=data)
 
     def upload_arquivo(self, view, request):
@@ -29,7 +29,7 @@ class HomeController:
                 file.save(get_arquivo(file))
                 with open(get_arquivo(file), mode='r', encoding='utf-8') as arq:
                     for line in csv.reader(arq, delimiter=','):
-                        check_date = Transactions.check_date(line[7][0:10])
+                        check_date = Transacoes_repository.check_date(line[7][0:10])
                         if check_date:
                             flash("Esse arquivo já foi inserido anteriormente!")
                             return redirect("/importar-transacoes")
@@ -52,13 +52,13 @@ class HomeController:
                                 if line[7][0:10] == default_date:
                                     print(line)
                                     check_empty_field(line)
-                                    Transactions.new_record(line[0], line[1], line[2], line[3], line[4], line[5], line[6], default_date)
+                                    Transacoes_repository.new_record(line[0], line[1], line[2], line[3], line[4], line[5], line[6], default_date)
 
-                            except Exception as e:
+                            except:
                                 del line
                                 flash("Alguns arquivos não foram salvos, pois estavam com datas divergêntes ou faltando informações!")
 
-                HistoricoUpload.new_record_upload(default_date)
+                HistoricoUploadRepository.new_record_upload(default_date)
 
         except Exception:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")

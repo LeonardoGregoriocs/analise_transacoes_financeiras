@@ -6,7 +6,7 @@ from flask import redirect, render_template, flash, session
 from flask_bcrypt import Bcrypt
 from email.message import EmailMessage
 
-from app.models.user import User
+from app.repository.user_repository import UserRepository
 
 EMAIL_ADDRESS = os.environ['EMAIL_ADDRESS']
 EMAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
@@ -24,7 +24,7 @@ class UserController:
         if 'usuario_logado' not in session or session['usuario_logado'] == None:
             flash("Usuário não está logado!")
             return redirect('/')
-        user_registered = User.get_all_user()
+        user_registered = UserRepository.get_all_user()
         return render_template("usuarios.html", users=user_registered)
 
     def new_register(self, view, request):
@@ -40,12 +40,12 @@ class UserController:
                 flash("O campo e-mail não pode ficar vazio")
                 return redirect("/cadastro")
 
-            email_exists = User.check_if_email_exists(email)
+            email_exists = UserRepository.check_if_email_exists(email)
             if not email_exists:
 
                 password_hash = password_encrypted(senha)
 
-                User.new_user(nome = name, email = email, senha=password_hash)
+                UserRepository.new_user(nome = name, email = email, senha=password_hash)
                 flash("Cadastro feito com sucesso! Será enviado uma senha pro seu e-mail")
 
                 send_email(email=email, name=name, password=senha)
@@ -64,7 +64,7 @@ class UserController:
         return render_template('editar.html')
 
     def update_user(self, view, request, id):
-        user_obj = User.get_user_id(id)
+        user_obj = UserRepository.get_user_id(id)
 
         user_obj.name = request.form['name']
         user_obj.email = request.form['email']
@@ -76,13 +76,13 @@ class UserController:
             flash("O campo e-mail não pode ficar vazio!")
             return redirect("cadastro")
 
-        User.update_user(user_obj.name, user_obj.email, id)
+        UserRepository.update_user(user_obj.name, user_obj.email, id)
 
         return redirect('/usuarios')
 
 
     def delete_user(self, view, request, id):
-        User.delete_user(id)
+        UserRepository.delete_user(id)
 
         flash(f"Usuário com ID: {id} removido com sucesso!")
         return redirect('/usuarios')
