@@ -29,11 +29,11 @@
             <div class="alert">
             <form method="post" action="{{ url_for('login.authenticate')}}">
                 <label form="email">E-mail:</label>
-                <input type="text" name="email" value="{{ request.form['email']}}">
+                <input type="text" name="email" value="{{ request.form['email'] }}">
                 <br>
                 <br>
                 <label form="senha">Senha:</label>
-                <input type="password" name="senha" value="{{ request.form['senha']}}">
+                <input type="password" name="senha" value="{{ request.form['senha'] }}">
                     <br>
                     <br>
                     <div class="alert">

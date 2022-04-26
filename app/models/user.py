@@ -1,4 +1,8 @@
+import os
+
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import generate_password_hash
+
 
 db = SQLAlchemy()
 
@@ -20,10 +24,13 @@ class User(db.Model):
         db.session.commit()
 
     def create_admin():
+
+        senha = generate_password_hash(os.environ['SENHA_ADMIN'])
+
         new_admin = User(
             nome="admin",
             email="admin@email.com.br",
-            senha='123999'
+            senha=senha
         )
 
         db.session.add(new_admin)
