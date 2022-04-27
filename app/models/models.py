@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 
 
 db = SQLAlchemy()
@@ -29,4 +31,4 @@ class HistoricoUpload(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     data_transacao = db.Column(db.String(50), nullable=False)
     data_importacao = db.Column(db.DateTime, default=datetime.now())
-    id_user = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)

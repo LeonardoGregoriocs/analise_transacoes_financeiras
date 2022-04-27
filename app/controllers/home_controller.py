@@ -58,7 +58,7 @@ class HomeController:
                                 del line
                                 flash("Alguns arquivos não foram salvos, pois estavam com datas divergêntes ou faltando informações!")
 
-                HistoricoUploadRepository.new_record_upload(default_date)
+                HistoricoUploadRepository.new_record_upload(default_date, session['usuario_logado'])
 
         except Exception:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")

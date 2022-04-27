@@ -2,9 +2,10 @@ from app.models.models import db, HistoricoUpload
 
 class HistoricoUploadRepository:
 
-    def new_record_upload(data_transacao):
+    def new_record_upload(data_transacao, user_id):
         new_record_upload = HistoricoUpload(
             data_transacao=data_transacao,
+            user_id=user_id
         )
 
         db.session.add(new_record_upload)
