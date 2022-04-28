@@ -6,6 +6,7 @@ from jsonschema import ValidationError
 
 from app.repository.historico_upload_repository import HistoricoUploadRepository
 from app.repository.transacoes_repository import Transacoes_repository
+from app.repository.user_repository import UserRepository
 
 DIRETORIO = os.environ['DIRETORIO']
 
@@ -17,6 +18,7 @@ class HomeController:
         if 'usuario_logado' not in session or session['usuario_logado'] == None:
             flash("Usuário não está logado!")
             return redirect('/')
+
         data = HistoricoUploadRepository.get_information_transactions()
         return render_template("index.html", dados=data)
 
@@ -58,7 +60,9 @@ class HomeController:
                                 del line
                                 flash("Alguns arquivos não foram salvos, pois estavam com datas divergêntes ou faltando informações!")
 
-                HistoricoUploadRepository.new_record_upload(default_date, session['usuario_logado'])
+
+                user = UserRepository.get_user_id(session['usuario_logado'])
+                HistoricoUploadRepository.new_record_upload(default_date, user.id, user.nome)
 
         except Exception:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")

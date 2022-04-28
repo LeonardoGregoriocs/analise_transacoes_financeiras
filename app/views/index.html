@@ -49,15 +49,17 @@
         </div>
 
         <div class="alert">
-            <table width="60%" align="center" border="2">
+            <table width="90%" align="center" border="2">
                 <tr>
                     <td width="30%">Data Transação</td>
                     <td width="30%">Data Importação</td>
+                    <td width="30%">Usuários</td>
                 </tr>
                 {% for dado in dados %}
                 <tr>
-                    <td>{{ dado.data_transacao}}</td>
-                    <td>{{ dado.data_importacao}}</td>
+                    <td>{{ dado.data_transacao }}</td>
+                    <td>{{ dado.data_importacao }}</td>
+                    <td>{{ dado.nome_usuario }}</td>
                 </tr>
                 {% endfor %}
             </table>

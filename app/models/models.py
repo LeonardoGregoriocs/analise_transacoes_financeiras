@@ -1,7 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
 
 
 db = SQLAlchemy()
@@ -19,16 +17,17 @@ class Transactions(db.Model):
     valor_transacao = db.Column(db.String(50), nullable=False)
     data_transacao = db.Column(db.String(50), nullable=False)
 
+class HistoricoUpload(db.Model):
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    data_transacao = db.Column(db.String(50), nullable=False)
+    data_importacao = db.Column(db.DateTime, default=datetime.now())
+    user_id  = db.Column(db.Integer, nullable=False)
+    nome_usuario = db.Column(db.String(50), nullable=False)
+
 class User(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     nome = db.Column(db.String(100))
     email = db.Column(db.String(150))
     senha = db.Column(db.String(150))
-
-class HistoricoUpload(db.Model):
-
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    data_transacao = db.Column(db.String(50), nullable=False)
-    data_importacao = db.Column(db.DateTime, default=datetime.now())
-    user_id = db.Column(db.Integer)
