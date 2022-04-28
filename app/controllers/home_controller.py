@@ -68,6 +68,12 @@ class HomeController:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")
         return redirect("/importar-transacoes")
 
+    def details_imports(self, view, request):
+        if 'usuario_logado' not in session or session['usuario_logado'] == None:
+            flash("Usuário não está logado!")
+            return redirect('/')
+        return render_template("detalhe_importacoes.html")
+
 def get_arquivo(file):
     file_address = os.path.join(DIRETORIO, file.filename)
     return file_address
