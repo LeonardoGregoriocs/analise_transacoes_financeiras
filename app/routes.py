@@ -4,7 +4,7 @@ from mvc_flask import Router
 Router.get("/", "home#main_page")
 Router.get("/importar-transacoes", "home#index")
 Router.post("/importar-transacoes", "home#upload_arquivo")
-Router.get("/detalhes-importacao", "home#details_imports" )
+Router.get("/<id>/detalhes-importacao", "home#details_imports" )
 
 Router.get("/cadastro", "user#register")
 Router.post("/cadastro", "user#new_register")

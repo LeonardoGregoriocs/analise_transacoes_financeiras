@@ -60,7 +60,7 @@
                 <tr>
                     <td>{{ dado.data_transacao }}</td>
                     <td>{{ dado.data_importacao }}</td>
-                    <td width="10%"><form action="/detalhes-importacao"><button type="submit" style="background-color: aquamarine">Detalhar</button></form></td>
+                    <td width="10%"><form action="{{ dado.id }}/detalhes-importacao"><button type="submit" style="background-color: aquamarine">Detalhar</button></form></td>
                 </tr>
                 {% endfor %}
             </table>

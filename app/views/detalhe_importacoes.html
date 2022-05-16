@@ -23,6 +23,60 @@
         <div class="alert">
             <h1 style="background: #868686d2;">DETALHES DA IMPORTAÇÃO</h1>
         </div>
-        </form>
+
+        <div class="alert">
+            <table width="80%" align="center" border="2">
+                <tr>
+                    <td width="35%" align="center">Data da importação</td>
+                    <td width="35%" align="center">Usuário que importou</td>
+                    <td width="10%" align="center">Data das transações</td>
+                </tr>
+                {% for dado in dados_transacoes %}
+                <tr>
+                    <td>{{ dado.data_importacao }}</td>
+                    <td>{{ dado.nome_usuario}}</td>
+                    <td>{{ dado.data_transacao }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+        <div class="alert">
+            <h1 style="background: #868686d2;">TRANSAÇÕES IMPORTADAS</h1>
+        </div>
+
+        <div class="alert">
+            <table width="80%" align="center" border="2">
+                <tr>
+                    <td width="35%" align="center">ORIGEM</td>
+                    <td width="35%" align="center">DESTINO</td>
+                    <td width="10%" align="center">VALOR</td>
+                </tr>
+                <table width="80%" align="center" border="2">
+                <tr>
+                    <td width="8%" align="center">BANCO</td>
+                    <td width="6%" align="center">AGÊNCIA</td>
+                    <td width="6%" align="center">CONTA</td>
+                    <td width="8%" align="center">BANCO</td>
+                    <td width="6%" align="center">AGÊNCIA</td>
+                    <td width="6%" align="center">CONTA</td>
+                    <td width="4.8%" align="center">VALOR TRANSAÇÃO</td>
+                </tr>
+                {% for dado in dados %}
+                <tr>
+                    <td>{{ dado.banco_origem }}</td>
+                    <td>{{ dado.agencia_origem }}</td>
+                    <td>{{ dado.conta_origem }}</td>
+                    <td>{{ dado.banco_destino }}</td>
+                    <td>{{ dado.agencia_destino }}</td>
+                    <td>{{ dado.conta_destino }}</td>
+                    <td>{{ dado.valor_transacao }}</td>
+                </tr>
+                {% endfor %}
+                </table>
+            </table>
+        </div>
+
     </body>
 </html>

@@ -20,3 +20,9 @@ class Transacoes_repository:
 
         db.session.add(new_record)
         db.session.commit()
+
+    def get_data_transacoes():
+        return db.session.query(Transactions).all()
+
+    def get_check_date(data_transacao):
+        return db.session.query(Transactions).filter(data_transacao).all()

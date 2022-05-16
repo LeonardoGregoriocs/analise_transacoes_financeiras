@@ -17,3 +17,12 @@ class HistoricoUploadRepository:
         HistoricoUpload.data_importacao,
         HistoricoUpload.data_transacao
         ).all()
+
+    def get_information_transactions_details(id):
+        return db.session.query(HistoricoUpload).filter(HistoricoUpload.id == id).filter(
+        HistoricoUpload.data_importacao,
+        HistoricoUpload.data_transacao
+        ).all()
+
+    def get_id(id):
+        return db.session.query(HistoricoUpload).filter(HistoricoUpload.id == id).first()

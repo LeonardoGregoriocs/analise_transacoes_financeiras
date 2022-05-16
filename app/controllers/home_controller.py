@@ -1,8 +1,10 @@
+from cgi import test
 import csv
 import os
 
 from flask import flash, redirect, render_template, session
 from jsonschema import ValidationError
+from app.models.models import HistoricoUpload, Transactions
 
 from app.repository.historico_upload_repository import HistoricoUploadRepository
 from app.repository.transacoes_repository import Transacoes_repository
@@ -68,11 +70,16 @@ class HomeController:
             flash("Nenhum arquivo selecionado ou arquivo invalido!")
         return redirect("/importar-transacoes")
 
-    def details_imports(self, view, request):
+    def details_imports(self, view, request, id):
         if 'usuario_logado' not in session or session['usuario_logado'] == None:
             flash("Usuário não está logado!")
             return redirect('/')
-        return render_template("detalhe_importacoes.html")
+
+        data_transacoes = HistoricoUploadRepository.get_information_transactions_details(id)
+        data = Transacoes_repository.get_check_date(data_transacoes)
+
+        return render_template("detalhe_importacoes.html", dados=data, dados_transacoes=data_transacoes)
+
 
 def get_arquivo(file):
     file_address = os.path.join(DIRETORIO, file.filename)
