@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Financeiro</title>
+        <style> div.alert {text-align: center;} </style>
+
+        <div class="alert">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+    </head>
+
+    <body>
+        <div class="alert">
+            <h1 style="background: #868686d2;">SISTEMA DE ANÁLISE DE TRANSAÇÕES FINANCEIRAS</h1>
+        </div>
+
+        <div class="alert">
+            <h2><em>Olá, bem-vindo! Para importa ou visualizar as importações realizadas, faça seu login :) </em></h2>
+            <div class="alert">
+            <form method="post" action="{{ url_for('login.authenticate')}}">
+                <label form="email">E-mail:</label>
+                <input type="text" name="email" value="{{ request.form['email'] }}">
+                <br>
+                <br>
+                <label form="senha">Senha:</label>
+                <input type="password" name="senha" value="{{ request.form['senha'] }}">
+                    <br>
+                    <br>
+                    <div class="alert">
+                        <input style="background-color: aquamarine;" type=submit value=Entrar>
+                    </div>
+            </div>
+            </form>
